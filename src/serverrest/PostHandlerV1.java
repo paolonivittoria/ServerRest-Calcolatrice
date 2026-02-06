@@ -63,15 +63,15 @@ public class PostHandlerV1 implements HttpHandler {
                 return;
             }
             
-            // Esegue il calcolo
-            double risultato = CalcolatriceService.calcola(
+            // Esegue il calcolo usando CalcolatriceServiceV1
+            double risultato = CalcolatriceServiceV1.calcola(
                 request.getOperando1(),
                 request.getOperando2(),
                 request.getOperatore()
             );
             
-            // Crea l'oggetto risposta
-            OperazioneResponse response = new OperazioneResponse(
+            // Crea l'oggetto risposta usando OperazioneResponseV1
+            OperazioneResponseV1 response = new OperazioneResponseV1(
                 request.getOperando1(),
                 request.getOperando2(),
                 request.getOperatore(),
@@ -115,9 +115,10 @@ public class PostHandlerV1 implements HttpHandler {
     private void inviaErrore(HttpExchange exchange, int codice, String messaggio) 
             throws IOException {
         
-        Map errore = new HashMap<>();
+        Map<String, Object> errore = new HashMap<>();
         errore.put("errore", messaggio);
         errore.put("status", codice);
+        errore.put("versione", "v1");  // Aggiunto per identificare la versione
         
         String jsonErrore = gson.toJson(errore);
         inviaRisposta(exchange, codice, jsonErrore);

@@ -58,11 +58,11 @@ public class GetHandlerV1 implements HttpHandler {
             double operando2 = Double.parseDouble(parametri.get("operando2"));
             String operatore = parametri.get("operatore");
             
-            // Esegue il calcolo
-            double risultato = CalcolatriceService.calcola(operando1, operando2, operatore);
+            // Esegue il calcolo usando CalcolatriceServiceV1
+            double risultato = CalcolatriceServiceV1.calcola(operando1, operando2, operatore);
             
-            // Crea l'oggetto risposta
-            OperazioneResponse response = new OperazioneResponse(
+            // Crea l'oggetto risposta usando OperazioneResponseV1
+            OperazioneResponseV1 response = new OperazioneResponseV1(
                 operando1,
                 operando2,
                 operatore,
@@ -136,6 +136,7 @@ public class GetHandlerV1 implements HttpHandler {
         Map<String, Object> errore = new HashMap<>();
         errore.put("errore", messaggio);
         errore.put("status", codice);
+        errore.put("versione", "v1");  // Aggiunto per identificare la versione
         
         String jsonErrore = gson.toJson(errore);
         inviaRisposta(exchange, codice, jsonErrore);
