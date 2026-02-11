@@ -49,7 +49,7 @@ public class PostHandlerV1 implements HttpHandler {
             );
             
             // GSON converte automaticamente il JSON in oggetto Java
-            OperazioneRequest request = gson.fromJson(reader, OperazioneRequest.class);
+            OperazioneRequestV1 request = gson.fromJson(reader, OperazioneRequestV1.class);
             reader.close();
             
             // Validazione
