@@ -4,6 +4,8 @@
  */
 package serverrest;
 
+import java.util.UUID;
+
 /**
  *
  * @author delfo
@@ -14,7 +16,7 @@ public class OperazioneResponseV1 {
     private String operatore;
     private double risultato;
     private String operazione;
-    
+    private String requestID;
     // Costruttore vuoto necessario per GSON
     public OperazioneResponseV1() {
     }

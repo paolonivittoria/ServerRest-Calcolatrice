@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,13 +70,15 @@ public class PostHandlerV2 implements HttpHandler {
                 request.getOperando2(),
                 request.getOperatore()
             );
-            
+            Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
+                    
             // Crea l'oggetto risposta usando OperazioneResponseV1
-            OperazioneResponseV1 response = new OperazioneResponseV1(
+            OperazioneResponseV2 response = new OperazioneResponseV2(
                 request.getOperando1(),
                 request.getOperando2(),
                 request.getOperatore(),
-                risultato
+                risultato,
+                timeStamp
             );
             
             // GSON converte automaticamente l'oggetto Java in JSON
@@ -118,7 +121,7 @@ public class PostHandlerV2 implements HttpHandler {
         Map<String, Object> errore = new HashMap<>();
         errore.put("errore", messaggio);
         errore.put("status", codice);
-        errore.put("versione", "v1");  // Aggiunto per identificare la versione
+        errore.put("versione", "v2");  // Aggiunto per identificare la versione
         
         String jsonErrore = gson.toJson(errore);
         inviaRisposta(exchange, codice, jsonErrore);

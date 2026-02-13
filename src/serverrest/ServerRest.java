@@ -37,9 +37,11 @@ public class ServerRest {
             server.createContext("/api/calcola/post", new PostHandlerV1());
             server.createContext("/api/calcola/get", new GetHandlerV1());
             
+            server.createContext("/api/v2/calcola/post", new PostHandlerV2());
+            server.createContext("/api/v2/calcola/get", new GetHandlerV2());
+            
             server.createContext("/api/v1/calcola/post", new PostHandlerV1());
             server.createContext("/api/v1/calcola/get", new GetHandlerV1());
-            
             // Endpoint di benvenuto
             server.createContext("/", ServerRest::gestisciBenvenuto);
             
@@ -54,12 +56,12 @@ public class ServerRest {
             System.out.println("Porta: " + porta);
             System.out.println();
             System.out.println("Endpoint disponibili:");
-            System.out.println("  - POST: http://localhost:" + porta + "/api/v1/calcola/post");
-            System.out.println("  - GET:  http://localhost:" + porta + "/api/v1/calcola/get");
+            System.out.println("  - POST: http://localhost:" + porta + "/api/v2/calcola/post");
+            System.out.println("  - GET:  http://localhost:" + porta + "/api/v2/calcola/get");
             System.out.println("  - Info: http://localhost:" + porta + "/");
             System.out.println();
             System.out.println("Operatori supportati:");
-            System.out.println("  SOMMA, SOTTRAZIONE, MOLTIPLICAZIONE, DIVISIONE");
+            System.out.println("  SOMMA, SOTTRAZIONE, MOLTIPLICAZIONE, DIVISIONE, POTENZA, RADICE, MODULO");
             System.out.println();
             System.out.println("Premi Ctrl+C per fermare il server");
             System.out.println("==============================================");
@@ -94,6 +96,9 @@ public class ServerRest {
         operatori.put("sottrazione", "SOTTRAZIONE o -");
         operatori.put("moltiplicazione", "MOLTIPLICAZIONE o * o X");
         operatori.put("divisione", "DIVISIONE o /");
+        operatori.put("potenza", "POTENZA o ^");
+        operatori.put("radice", "RADICE o √");
+        operatori.put("modulo", "MODULO o %");
         info.put("operatori_supportati", operatori);
         
         String jsonRisposta = gson.toJson(info);

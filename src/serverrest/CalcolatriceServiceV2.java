@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package serverrest;
-
+import java.lang.Math;
 /**
  *
  * @author delfo
@@ -50,10 +50,33 @@ public class CalcolatriceServiceV2 {
                 }
                 return operando1 / operando2;
                 
+            case "POTENZA":
+            case "^":
+                if (operando1 ==0 && operando2 == 0) {
+                    throw new IllegalArgumentException("Forma indeterminata");
+                }
+                return Math.pow(operando1, operando2);
+                
+                
+            case "RADICE":
+            case "√":
+                if (operando1<0) {
+                    throw new IllegalArgumentException("Radice con base minore di zero non consentita");
+                }
+                return Math.pow(operando1, 1.0/ operando2);
+                
+                
+            case "MODULO":
+            case "%":
+                if (operando2 == 0) {
+                    throw new IllegalArgumentException("Divisione per zero non consentita");
+                }
+                return operando1 % operando2;
+                
             default:
                 throw new IllegalArgumentException(
                     "Operatore non valido: " + operatore + 
-                    ". Operatori consentiti: SOMMA, SOTTRAZIONE, MOLTIPLICAZIONE, DIVISIONE"
+                    ". Operatori consentiti: SOMMA, SOTTRAZIONE, MOLTIPLICAZIONE, DIVISIONE, POTENZA, RADICE QUADRATA, MODULO"
                 );
         }
     }
